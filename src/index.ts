@@ -19,9 +19,28 @@ import address from "./routes/address";
 const app = express();
 // allow localhost to recieve data
 // const allowedOrigins = ["http://localhost:5173"];
-app.use(cors({
-  origin: 'https://666dfa17633cce3259169534--leafy-bubblegum-60b994.netlify.app'
-}));
+// Allow specific origins to receive data
+// Allow specific origins to receive data
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://666dfa17633cce3259169534--leafy-bubblegum-60b994.netlify.app",
+];
+
+const corsOptions = {
+  origin: (
+    origin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void
+  ) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
