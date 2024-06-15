@@ -19,7 +19,9 @@ import address from "./routes/address";
 const app = express();
 // allow localhost to recieve data
 // const allowedOrigins = ["http://localhost:5173"];
-app.use(cors());
+app.use(cors({
+  origin: 'https://666dfa17633cce3259169534--leafy-bubblegum-60b994.netlify.app'
+}));
 
 app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
