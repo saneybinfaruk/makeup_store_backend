@@ -11,7 +11,7 @@ import products from "./routes/products";
 // import cors from "./middleware/cors";
 import payment from "./routes/payment";
 import productCart from "./routes/productCart";
-// import cors from "cors";
+import cors from "cors";
 import webhook from "./routes/webhook";
 import orders from "./routes/orders";
 import address from "./routes/address";
@@ -25,12 +25,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(
-//   cors({
-//     origin: "*",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
