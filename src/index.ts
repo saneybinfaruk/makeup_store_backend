@@ -22,6 +22,8 @@ const allowedOrigins = ['https://jamboramakeupstore.netlify.app'];
 
 // Use CORS middleware
 app.use(cors(allowedOrigins));
+app.use(helmet());
+app.use(compression());
 
 app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
@@ -37,8 +39,7 @@ app.use("/api/create-checkout-session", payment);
 app.use("/api/carts", productCart);
 app.use("/api/orders", orders);
 app.use("/api/address", address);
-app.use(helmet());
-app.use(compression());
+
 
 // catch error
 app.use(error);
