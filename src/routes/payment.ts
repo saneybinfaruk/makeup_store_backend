@@ -170,6 +170,7 @@ router.post("/", async (req: Request, res: Response) => {
     },
   });
 
+  
   res.send(session.id);
 });
 const endpointSecret =

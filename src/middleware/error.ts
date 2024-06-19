@@ -8,7 +8,7 @@ const error = (
   next: NextFunction
 ) => {
   logger.info("error", error);
-  res.status(500).send("Something broke!");
+  res.status(500).send(error);
 };
 
 export default error;
