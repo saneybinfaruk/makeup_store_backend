@@ -135,6 +135,7 @@ router.post("/", async (req: Request, res: Response) => {
 
       // Transform each product into the required format for Stripe
       return products.map((product) => {
+        const price = product.price ? product.price : 0;
         // Get product details
         const {
           quantity: itemQuantity,
@@ -154,8 +155,7 @@ router.post("/", async (req: Request, res: Response) => {
                 colorValue: cValue,
               },
             },
-            unit_amount:
-              parseFloat((product.price ? product.price : 0).toString()) * 100,
+            unit_amount: Math.round(parseInt(price.toString()) * 100),
           },
           quantity: itemQuantity,
         };
@@ -170,7 +170,6 @@ router.post("/", async (req: Request, res: Response) => {
     },
   });
 
-  
   res.send(session.id);
 });
 const endpointSecret =
