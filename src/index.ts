@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import "express-async-errors";
+// import "express-async-errors";
 import helmet from "helmet";
 import compression from "compression";
 import users from "./routes/users";
