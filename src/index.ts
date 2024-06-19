@@ -24,11 +24,11 @@ const app = express();
 // app.use(cors(allowedOrigins));
 
 app.use(cors());
+app.use("/api/create-checkout-session/webhook", webhook);
 
 app.use(helmet());
 app.use(compression());
 
-app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
