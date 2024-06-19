@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import Stripe from "stripe";
 import { insertOrder, insertOrderItem } from "../database/orders";
 import { string } from "zod";
+import { log } from "console";
 
 const router = express.Router();
 const endpointSecret =
@@ -37,6 +38,9 @@ router.post(
         break;
 
       case "checkout.session.completed":
+        console.log('===============checkout.session.completed=====================');
+        console.log('checkout.session.completed');
+        console.log('================checkout.session.completed====================');
         const session = event.data.object;
         const checkoutSession = await stripe.checkout.sessions.retrieve(
           session.id,
@@ -79,12 +83,16 @@ router.post(
         );
 
  
+        console.log('===============insertOrder=====================');
 
+        
         const orderId = await insertOrder(
           parseInt(session.metadata?.userId!),
           (session.amount_total || 0) / 100,
           (checkoutSession.total_details?.amount_discount || 0) / 100
         );
+        console.log('orderId == ', orderId);
+        console.log('===============insertOrder=====================');
 
         const orderItem = items?.map(async (item) => {
           return insertOrderItem(
