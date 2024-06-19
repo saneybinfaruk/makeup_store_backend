@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 import helmet from "helmet";
 import compression from "compression";
 import users from "./routes/users";
@@ -7,7 +8,6 @@ import error from "./middleware/error";
 import logger from "./utility/loggin";
 import checkJwtPrivateKey from "./startup/check-key";
 import products from "./routes/products";
-// import cors from "./middleware/cors";
 import payment from "./routes/payment";
 import productCart from "./routes/productCart";
 import webhook from "./routes/webhook";
