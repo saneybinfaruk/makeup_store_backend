@@ -5,8 +5,8 @@ import { string } from "zod";
 import { log } from "console";
 
 const router = express.Router();
-const endpointSecret =
-  "whsec_JWUXbFbLorUKs432rKaAnezXqNCPYe2l";
+const endpointSecret = `${process.env.ENDPOINT_SIGNIN_SECRETKEY}`;
+
 const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 
 type ProductMetaData = {
@@ -38,9 +38,13 @@ router.post(
         break;
 
       case "checkout.session.completed":
-        console.log('===============checkout.session.completed=====================');
-        console.log('checkout.session.completed');
-        console.log('================checkout.session.completed====================');
+        console.log(
+          "===============checkout.session.completed====================="
+        );
+        console.log("checkout.session.completed");
+        console.log(
+          "================checkout.session.completed===================="
+        );
         const session = event.data.object;
         const checkoutSession = await stripe.checkout.sessions.retrieve(
           session.id,
@@ -82,17 +86,15 @@ router.post(
           })
         );
 
- 
-        console.log('===============insertOrder=====================');
+        console.log("===============insertOrder=====================");
 
-        
         const orderId = await insertOrder(
           parseInt(session.metadata?.userId!),
           (session.amount_total || 0) / 100,
           (checkoutSession.total_details?.amount_discount || 0) / 100
         );
-        console.log('orderId == ', orderId);
-        console.log('===============insertOrder=====================');
+        console.log("orderId == ", orderId);
+        console.log("===============insertOrder=====================");
 
         const orderItem = items?.map(async (item) => {
           return insertOrderItem(
