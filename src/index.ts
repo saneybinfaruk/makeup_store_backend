@@ -8,20 +8,23 @@ import error from "./middleware/error";
 import logger from "./utility/loggin";
 import checkJwtPrivateKey from "./startup/check-key";
 import products from "./routes/products";
-import cors from "./middleware/cors";
+// import cors from "./middleware/cors";
 import payment from "./routes/payment";
 import productCart from "./routes/productCart";
 import webhook from "./routes/webhook";
 import orders from "./routes/orders";
 import address from "./routes/address";
+import cors from "cors";
 
 const app = express();
 
 // List of allowed origins
-const allowedOrigins = ['https://jamboramakeupstore.netlify.app/'];
+// const allowedOrigins = ['https://jamboramakeupstore.netlify.app/'];
 
-// Use CORS middleware
-app.use(cors(allowedOrigins));
+// // Use CORS middleware
+// app.use(cors(allowedOrigins));
+
+app.use(cors());
 
 app.use(helmet());
 app.use(compression());
@@ -40,7 +43,6 @@ app.use("/api/create-checkout-session", payment);
 app.use("/api/carts", productCart);
 app.use("/api/orders", orders);
 app.use("/api/address", address);
-
 
 // catch error
 app.use(error);
