@@ -8,29 +8,16 @@ import error from "./middleware/error";
 import logger from "./utility/loggin";
 import checkJwtPrivateKey from "./startup/check-key";
 import products from "./routes/products";
-// import cors from "./middleware/cors";
+import cors from "./middleware/cors";
 import payment from "./routes/payment";
 import productCart from "./routes/productCart";
-import cors from "cors";
 import webhook from "./routes/webhook";
 import orders from "./routes/orders";
 import address from "./routes/address";
 
 const app = express();
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
+cors(["https://jamboramakeupstore.netlify.app/"]);
 
 app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
