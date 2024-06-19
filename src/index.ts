@@ -18,10 +18,11 @@ import address from "./routes/address";
 const app = express();
 
 // List of allowed origins
-const allowedOrigins = ['https://jamboramakeupstore.netlify.app'];
+const allowedOrigins = ['https://jamboramakeupstore.netlify.app/'];
 
 // Use CORS middleware
 app.use(cors(allowedOrigins));
+
 app.use(helmet());
 app.use(compression());
 
