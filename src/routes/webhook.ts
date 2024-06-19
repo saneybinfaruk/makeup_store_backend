@@ -6,7 +6,7 @@ import { log } from "console";
 
 const router = express.Router();
 const endpointSecret =
-  "whsec_838da01868ad20da061f55dc754e64019bae4d57832c83deb3f0acf45259efc9";
+  "whsec_JWUXbFbLorUKs432rKaAnezXqNCPYe2l";
 const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 
 type ProductMetaData = {
