@@ -17,7 +17,11 @@ import address from "./routes/address";
 
 const app = express();
 
-cors(["https://jamboramakeupstore.netlify.app/"]);
+// List of allowed origins
+const allowedOrigins = ['https://jamboramakeupstore.netlify.app'];
+
+// Use CORS middleware
+app.use(cors(allowedOrigins));
 
 app.use("/api/create-checkout-session/webhook", webhook);
 app.use(express.json());
