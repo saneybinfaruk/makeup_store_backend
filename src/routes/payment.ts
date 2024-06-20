@@ -136,6 +136,7 @@ router.post("/", async (req: Request, res: Response) => {
       // Transform each product into the required format for Stripe
       return products.map((product) => {
         // Get product details
+
         const {
           quantity: itemQuantity,
           colorName: cName,
@@ -154,12 +155,9 @@ router.post("/", async (req: Request, res: Response) => {
                 colorValue: cValue,
               },
             },
-            unit_amount:
-              parseInt(
-                parseFloat(
-                  (product.price ? product.price : 0).toString()
-                ).toFixed(2)
-              ) * 100,
+            unit_amount: Math.round(
+              parseFloat(product.price ? product.price : "0") * 100
+            ),
           },
           quantity: itemQuantity,
         };
@@ -176,8 +174,6 @@ router.post("/", async (req: Request, res: Response) => {
 
   res.send(session.id);
 });
-const endpointSecret =
-  "whsec_838da01868ad20da061f55dc754e64019bae4d57832c83deb3f0acf45259efc9";
 
 // router.post(
 //   "/webhook",
