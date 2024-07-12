@@ -243,7 +243,7 @@ export const getProduct = async (productId: string) => {
 
 export const getNewProducts = async () => {
   const [products] = await db.query<Products[]>(
-    `SELECT * FROM products WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY) ORDER BY created_at DESC LIMIT 10`
+    `SELECT * FROM products WHERE created_at >= DATE_SUB(NOW(), INTERVAL 360 DAY) ORDER BY created_at DESC LIMIT 10`
   );
   return products;
 };
