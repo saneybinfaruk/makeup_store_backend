@@ -4,6 +4,7 @@ import env from "dotenv";
 import { getProductByIds } from "../database/products";
 import { Coupon, getCouponDetails } from "../database/coupons";
 import { assert } from "console";
+import auth from "../middleware/auth";
 
 env.config();
 
@@ -173,6 +174,45 @@ router.post("/", async (req: Request, res: Response) => {
   });
 
   res.send(session.id);
+});
+
+router.post("/mobile", auth, async (req: Request, res: Response) => {
+  const body = req.body as CartInfoSendToBackend[];
+  const ids = body.map((i) => i.productId);
+
+  if (ids.length === 0) return res.status(400).send("No product IDS provided!");
+
+  const [results] = await getProductByIds(ids);
+  const deliveryFees = 6;
+  let products = body.map((cartItem) => {
+    return {
+      price: results?.find((result) => result.product_id === cartItem.productId)
+        ?.price,
+      quantity: cartItem.quantity,
+    };
+  });
+
+  const price = products.reduce(
+    (total, currentItem) =>
+      total + parseFloat(currentItem.price!) * currentItem.quantity,
+    0
+  );
+
+  const totalPrice =
+    price - (price * body[0].discountAmount) / 100 + deliveryFees;
+
+  const amountInCents = Math.round(totalPrice * 100);
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amountInCents,
+      currency: "usd",
+    });
+
+    res.send(paymentIntent.client_secret);
+  } catch (error) {
+    res.status(404).send({ error: error });
+  }
 });
 
 // router.post(

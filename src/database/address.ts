@@ -1,7 +1,6 @@
 import { count } from "console";
 import db from "./db-connection";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
- 
 
 export const insertAddress = async (
   userId: number,
@@ -96,9 +95,6 @@ export const updateAddressById = async (
   userId: number,
   address_id: number
 ) => {
-
-
-  
   const query = `UPDATE address 
   SET address_line = ?, city = ?, state = ?, zip = ?, country = ?
   WHERE user_id = ? AND address_id = ?`;

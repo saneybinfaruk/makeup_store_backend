@@ -9,7 +9,7 @@ import {
 import z, { number, string } from "zod";
 import generateAuthToken from "../utility/token";
 import auth, { CustomRequest } from "../middleware/auth";
-import admin from "../middleware/admin";  
+import admin from "../middleware/admin";
 import { User } from "../entities/User";
 
 const router = express.Router();
@@ -46,6 +46,8 @@ router.get("/", auth, async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request<{}, {}, UserField>, res: Response) => {
+  console.log(req.body);
+
   const validation = registerSchema.safeParse(req.body);
   const { error, data } = validation;
   const { firstName, lastName, email, password } = data || {};

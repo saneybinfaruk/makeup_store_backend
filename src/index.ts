@@ -14,6 +14,7 @@ import webhook from "./routes/webhook";
 import orders from "./routes/orders";
 import address from "./routes/address";
 import cors from "cors";
+import coupon from "./routes/coupon";
 
 const app = express();
 
@@ -23,7 +24,7 @@ const app = express();
 // // Use CORS middleware
 // app.use(cors(allowedOrigins));
 
-app.use(cors());
+// app.use(cors());
 app.use("/api/create-checkout-session/webhook", webhook);
 
 app.use(helmet());
@@ -42,6 +43,7 @@ app.use("/api/create-checkout-session", payment);
 app.use("/api/carts", productCart);
 app.use("/api/orders", orders);
 app.use("/api/address", address);
+app.use("/api/coupon", coupon);
 
 // catch error
 app.use(error);

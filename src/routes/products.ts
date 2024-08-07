@@ -36,8 +36,6 @@ router.get("/", async (req: Request, res: Response) => {
 
   const search = query.search as string;
 
-
-
   const { products, totalPages } = await getProducts(
     productTypes,
     productBrands,
@@ -56,6 +54,7 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.get("/new", async (req: Request, res: Response) => {
   const products = await getNewProducts();
+
   res.send(products);
 });
 

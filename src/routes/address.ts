@@ -34,8 +34,8 @@ router.get("/:userId", auth, async (req: Request, res: Response) => {
   console.log(userId);
   console.log("====================================");
 
-  const getAllAddresses = await getSelectedAddress(userId);
-  res.send(getAllAddresses);
+  const selectedAddress = await getSelectedAddress(userId);
+  res.send(selectedAddress);
 });
 
 router.get("/all/:userId", auth, async (req: Request, res: Response) => {

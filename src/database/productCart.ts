@@ -40,7 +40,7 @@ export const getAllCartItemsByUserId = async (userId: number) => {
   const query = `SELECT cart_items.*, products.* FROM cart_items 
   JOIN carts ON carts.cart_id = cart_items.cart_id 
   JOIN products ON products.product_id = cart_items.product_id 
-  WHERE carts.user_id = ? `;
+  WHERE carts.user_id = ?`;
 
   const [result] = await db.query<CartItem[]>(query, [userId]);
 
