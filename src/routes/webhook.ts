@@ -33,7 +33,9 @@ router.post(
     switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntentSucceeded = event.data.object;
-
+        console.log(
+          "=============== payment Intent Succeeded ====================="
+        );
         // Then define and call a function to handle the event payment_intent.succeeded
         break;
 
@@ -93,6 +95,7 @@ router.post(
           (session.amount_total || 0) / 100,
           (checkoutSession.total_details?.amount_discount || 0) / 100
         );
+        
         console.log("orderId == ", orderId);
         console.log("===============insertOrder=====================");
 

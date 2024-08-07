@@ -242,14 +242,13 @@ export const getProduct = async (productId: string) => {
 
 export const getNewProducts = async () => {
   const [products] = await db.query<Products[]>(
-    `SELECT * FROM products WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY) ORDER BY created_at DESC LIMIT 10`
+    `SELECT * FROM products WHERE created_at >= DATE_SUB(NOW(), INTERVAL 365 DAY) ORDER BY created_at DESC LIMIT 10`
   );
   return products;
 };
 
 export const getProductByIds = async (ids: number[]) => {
-  const query = 
-  `SELECT name,api_featured_image, price,product_id
+  const query = `SELECT name,api_featured_image, price,product_id
   FROM 
   products 
   WHERE product_id 

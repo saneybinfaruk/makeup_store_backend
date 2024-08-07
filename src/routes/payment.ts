@@ -180,7 +180,7 @@ router.post("/mobile", auth, async (req: Request, res: Response) => {
   const body = req.body as CartInfoSendToBackend[];
   const ids = body.map((i) => i.productId);
 
-  if (ids.length === 0) return res.status(400).send("No product IDS provided!");
+  if (ids.length === 0) return res.status(400);
 
   const [results] = await getProductByIds(ids);
   const deliveryFees = 6;
