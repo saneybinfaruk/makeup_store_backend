@@ -24,7 +24,7 @@ const app = express();
 // // Use CORS middleware
 // app.use(cors(allowedOrigins));
 
-// app.use(cors());
+app.use(cors());
 app.use("/api/create-checkout-session/webhook", webhook);
 
 app.use(helmet());
